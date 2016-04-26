@@ -38,7 +38,7 @@ foreach my $f (@list) {
   chop $palette;
   chop $palette;
   chop $palette;
-  $palette .= ")";
+  $palette .= "\\\n)";
   close $fh;
 
   mkdir '../lib/Graphics/Gnuplot/Palettes/Moreland/' if not -d '../lib/Graphics/Gnuplot/Palettes/Moreland/';

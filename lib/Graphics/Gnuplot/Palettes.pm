@@ -8,7 +8,8 @@ use File::Basename;
 use File::Spec;
 use base qw(Exporter);
 
-our @EXPORT = qw(palette palette_groups %palettes);
+our @EXPORT = qw(palette);
+our @EXPORT_OK = qw(palette_groups palette_names);
 
 my @groups = ();
 my %palettes = ();
@@ -56,6 +57,14 @@ sub palette {
 
 sub palette_groups {
   return @groups;
+};
+
+sub palette_names {
+  my @all = ();
+  foreach my $g (@groups) {
+    push @all, sort @{$palettes{$g}};
+  };
+  return @all;
 };
 
 

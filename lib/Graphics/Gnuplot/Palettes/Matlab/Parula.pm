@@ -1,4 +1,4 @@
-package Graphics::Gnuplot::Palettes::Matlab::Perula;
+package Graphics::Gnuplot::Palettes::Matlab::Parula;
 
 =for Copyright
  .
@@ -13,8 +13,8 @@ package Graphics::Gnuplot::Palettes::Matlab::Perula;
 use strict;
 use base qw( Exporter );
 
-our @EXPORT_OK = qw($Perula);
-our $Perula = 'defined (\
+our @EXPORT_OK = qw($Parula);
+our $Parula = 'defined (\
  0    0.2081    0.1663    0.5292,\
  1    0.2116    0.1898    0.5777,\
  2    0.2123    0.2138    0.6270,\

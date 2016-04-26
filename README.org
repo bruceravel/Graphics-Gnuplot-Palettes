@@ -3,8 +3,59 @@
 
 A collection of high-quality palettes for surface plots made using Gnuplot.
 
-This is useful for any Pel-to-Gnuplot interface, including
-L<PDL::Graphics::Gnuplot>, L<Graphics::GnuplotIF>, and probably others.
+This is useful for any Perl-to-Gnuplot interface, including
+[[https://metacpan.org/pod/PDL::Graphics::Gnuplot][PDL::Graphics::Gnuplot]], [[https://metacpan.org/pod/Graphics::GnuplotIF][Graphics::GnuplotIF]], and probably others.
+
+To use this in a perl program:
+
+  #+BEGIN_SRC perl
+  use Graphics::Gnuplot::Palette;
+  my $colors = palette("BlackBody");
+  send_to_gnuplot_process("set palette $colors");
+  #+END_SRC
+
+The ~palette~ method is exported by default and takes as its argument
+one of the perl module names listed in the tables below.  In the case
+of a name collision, you can specify the palette group also, like so:
+
+  #+BEGIN_SRC perl
+  my $colors = palette("Moreland", "BlackBody");
+  #+END_SRC
+
+In the two-argument form, the named palette will be searched for only
+among that palette group.  In the one-argument form, the first one
+found by that name is returned.
+
+If the requested palette name cannot be found, the function returns
+the string defining Gnuplot's traditional pm3d palette.
+
+** Gnuplot suggestions
+
+This set of color maps implements the suggested RGB values from the
+~set palette~ section of the Gnuplot manual.
+
+The traditional pm3d palette is the return value for the palette
+method when it cannot figure out which palette you are asking for.
+The other are quite similar to offerings in the CET group.
+
+| perl module | RGB values | explanation                                               |
+|-------------+------------+-----------------------------------------------------------|
+| Pm3d        | 7,5,15     | traditional pm3d (black-blue-red-yellow)                  |
+| GRV         | 3,11,6     | green-red-violet                                          |
+| Ocean       | 23,28,3    | ocean (green-blue-white); try also all other permutations |
+| Hot         | 21,22,23   | hot (black-red-yellow-white)                              |
+| Grey        | 30,31,32   | color printable on gray (black-blue-violet-yellow-white)  |
+| Rainbow     | 33,13,10   | rainbow (blue-green-yellow-red)                           |
+| AFMHot      | 34,35,36   | AFM hot (black-red-yellow-white)                          |
+
+** Matlab-like palettes
+
+This set implements common Matlab color palettes in Gnuplot form.
+
+| perl module | explanation                         |
+|-------------+-------------------------------------|
+| Parula      | Similar to Matlab's current default |
+| Jet         | The standard matlab rainbow         |
 
 ** Color Map Advice for Scientific Visualization
 
@@ -20,8 +71,8 @@ http://www.kennethmoreland.com/color-advice
 | BentCoolWarm       | Like above but interpolated linearly with a sharp bend in the middle                                                          |
 | BlackBody          | Based on colors from black-body radiation                                                                                     |
 | ExtendedBlackBody  | Like above but with blue and purple hues                                                                                      |
-| Kindlemann         | Rainbow color map with the luminance adjusted such that it monotonically changes                                              |
-| ExtendedKindlemann | Like above but adds more hues by doing a more than 360 degree loop around the hues                                            |
+| Kindlmann          | Rainbow color map with the luminance adjusted such that it monotonically changes                                              |
+| ExtendedKindlmann  | Like above but adds more hues by doing a more than 360 degree loop around the hues                                            |
 
 
 
