@@ -1,0 +1,130 @@
+
+* Graphics-Gnuplot-Palettes
+
+A collection of high-quality palettes for surface plots made using Gnuplot.
+
+This is useful for any Pel-to-Gnuplot interface, including
+L<PDL::Graphics::Gnuplot>, L<Graphics::GnuplotIF>, and probably others.
+
+** Color Map Advice for Scientific Visualization
+
+This set of color maps is from Kenneth Moreland following the
+principles in his paper, "Why We Use Bad Color Maps and What You Can
+Do About It." Kenneth Moreland. In Proceedings of Human Vision and
+Electronic Imaging (HVEI), 2016. (To appear.)  See also his web site
+http://www.kennethmoreland.com/color-advice
+
+| perl module        | explanation                                                                                                                   |
+|--------------------+-------------------------------------------------------------------------------------------------------------------------------|
+| SmoothCoolWarm     | Diverging (double-ended) blue-white-red color map with a smooth transition in the middle to prevent artifacts at the midpoint |
+| BentCoolWarm       | Like above but interpolated linearly with a sharp bend in the middle                                                          |
+| BlackBody          | Based on colors from black-body radiation                                                                                     |
+| ExtendedBlackBody  | Like above but with blue and purple hues                                                                                      |
+| Kindlemann         | Rainbow color map with the luminance adjusted such that it monotonically changes                                              |
+| ExtendedKindlemann | Like above but adds more hues by doing a more than 360 degree loop around the hues                                            |
+
+
+
+** CET Perceptually Uniform Colour Maps
+
+This set of color maps is designed to have uniform perceptual contrast
+over their whole range.  See http://peterkovesi.com/projects/colourmaps/
+
+All palettes in this group are the work of Peter Kovesi The University
+of Western Australia.  They are used under the terms of the [[http://creativecommons.org/licenses/by/4.0/][Creative
+Commons BY License]].  For more information, see the website or Kovesi's
+paper [[http://arxiv.org/pdf/1509.03700.pdf][Good Colour Maps: How to Design Them]], (arXiv:1509.03700
+[cs.GR] 2015)
+
+The palettes in this group were generated from [[http://peterkovesi.com/projects/colourmaps/CETperceptual_ParaView.xml][this XML file]] using a
+script in this repository.
+
+The language used in Kovesi's palettes was a little unwieldy for this
+purpose, so I adopted a file name shortening scheme as follows:
+
+| symbol | word        | explanation                                                                           |
+|--------+-------------+---------------------------------------------------------------------------------------|
+| C      | cyclic      | colors that are matched at each end with first order continuity                       |
+| I      | isoluminant | constructed from colours of equal perceptual lightness                                |
+| L      | linear      | color lightness values that increase or decrease linearly over the colour map's range |
+| D      | divergent   | follow some pattern of symmetry about their center                                    |
+| RB     | rainbow     | nominally follow some representation of the color spectrum                            |
+
+And here are is the connection between perl module names and original
+color map names.
+
+| perl module     | original name                     |
+|-----------------+-----------------------------------|
+| L_grey          | linear_grey_0-100_c0              |
+| L_grey          | linear_grey_10-95_c0              |
+| L_kryw          | linear_kryw_5-100_c67             |
+| L_kry           | linear_kry_5-98_c75               |
+| L_green         | linear_green_5-95_c69             |
+| L_blue          | linear_blue_5-95_c73              |
+| L_bmw           | linear_bmw_5-95_c89               |
+| L_bmy           | linear_bmy_10-95_c78              |
+| L_bgyw          | linear_bgyw_15-100_c68            |
+| L_gow           | linear_gow_60-85_c27              |
+| L_blue          | linear_blue_95-50_c20             |
+| L_ternary-red   | linear_ternary-red_0-50_c52       |
+| L_ternary-green | linear_ternary-green_0-46_c42     |
+| L_ternary-blue  | linear_ternary-blue_0-44_c57      |
+| D_bwr           | diverging_bwr_40-95_c42           |
+| D_gwv           | diverging_gwv_55-95_c39           |
+| D_gwr           | diverging_gwr_55-95_c38           |
+| D_bkr           | diverging_bkr_55-10_c35           |
+| D_bky           | diverging_bky_60-10_c30           |
+| D-L_bjy         | diverging-linear_bjy_30-90_c45    |
+| D-L_bjr         | diverging-linear_bjr_30-55_c53    |
+| D_bwr           | diverging_bwr_55-98_c37           |
+| D_cwm           | diverging_cwm_80-100_c22          |
+| D-RB_bgymr      | diverging-rainbow_bgymr_45-85_c67 |
+| RB_bgyrm        | rainbow_bgyrm_35-85_c71           |
+| RB_bgyr         | rainbow_bgyr_35-85_c73            |
+| C_mrybm         | cyclic_mrybm_35-75_c68            |
+| C_mygbm         | cyclic_mygbm_30-95_c78            |
+| C_wrwbw         | cyclic_wrwbw_40-90_c42            |
+| C_grey          | cyclic_grey_15-85_c0              |
+| I_cgo           | isoluminant_cgo_70_c39            |
+| I_cm            | isoluminant_cm_70_c39             |
+| D-I_cjo         | diverging-isoluminant_cjo_70_c25  |
+| D-I_cjm         | diverging-isoluminant_cjm_75_c24  |
+
+The original file names are explained in an image 
+from [[http://peterkovesi.com/projects/colourmaps/][Kovesi's web site]].  The following text is copied from 
+there.  Examples are given for each color map at the web site.
+
+[[http://peterkovesi.com/projects/colourmaps/NamingConvention.png]]
+
++ A colour map may have more than one attribute. For example,
+  diverging-linear or cyclic-isoluminant.
+
++ Lightness values can range from 0 to 100. For linear colour maps the
+  two lightness values indicate the first and last lightness values in
+  the map. For diverging colour maps the second value indicates the
+  lightness value of the centre point of the colour map (unless it is
+  a diverging-linear colour map). For cyclic and rainbow colour maps
+  the two values indicate the minimum and maximum lightness
+  values. Isoluminant colour maps have only one lightness value.
+
++ The string of characters indicating the nominal hue sequence uses the following code
+
+    | r - red    | g - green   | b - blue   |
+    | c - cyan   | m - magenta | y - yellow |
+    | o - orange | v - violet  |            |
+    | k - black  | w - white   | j - grey   |
+
+  ('j' rhymes with grey). Thus a 'heat' style colour map would be
+  indicated by the string 'kryw'. If the colour map is predominantly
+  one colour then the full name of that colour may be used. Note these
+  codes are mainly used to indicate the hues of the colour map
+  independent of the lightness/darkness and saturation of the colors.
+
++ Mean chroma/saturation is an indication of vividness of the color
+  map. A value of 0 corresponds to a grey scale. A value of 50 or more
+  will indicate a vivid colour map.
+  
++ Depending on whether a cyclic colour map is being used to render
+  data that is cyclic over 360 or 180 degrees a cyclic shift of 25%
+  may be applied.
+
