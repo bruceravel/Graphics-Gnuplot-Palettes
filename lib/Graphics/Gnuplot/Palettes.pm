@@ -31,9 +31,6 @@ foreach my $g (@groups) {
 };
 
 
-#use Data::Dump::Color;
-#dd \%palettes;
-
 sub palette {
   my ($group, $name);
   if ($#_ == 0) {
@@ -82,6 +79,17 @@ Graphics::Gnuplot::Palettes - A tool for managing Gnuplot surface plot palettes 
 
 =head1 DESCRIPTION
 
+Gnuplot has a powerful and flexible way of managing color maps for
+surface plots, but it's a pain to use.  Good color maps tend to
+require rather lengthy descriptions.  The purpose of this package is
+to remove some of the friction when using any of perl's various tools
+for interacting with Gnuplot.  Using various collections of
+high-quality color maps, this package allows simple access by name.
+
+Each color map is represented by a small perl module which defines and
+exports a named string containing the text expected by Gnuplot to
+define the color map.  In this way, it is easy quick and easy to
+switch between color maps.
 
 =head1 FUNCTIONS
 
@@ -168,8 +176,7 @@ L<http://github.com/bruceravel/BLA-XANES>
 
 =head1 LICENCE AND COPYRIGHT
 
-Copyright (c) 2006-2014,2016 Bruce Ravel and Jeremy Kropf.  All rights
-reserved.
+Copyright (c) 2016 Bruce Ravel.  All rights reserved.
 
 This module is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself. See L<perlgpl>.
