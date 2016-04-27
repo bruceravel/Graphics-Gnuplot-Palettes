@@ -3,6 +3,10 @@
 
 A collection of high-quality palettes for surface plots made using Gnuplot.
 
+Note: ~make test~ not working at this time, although running ~perl
+-I../blib/lib test.t~ in the ~t~ directory will run the test suite
+correctly.
+
 This is useful for any Perl-to-Gnuplot interface, including
 [[https://metacpan.org/pod/PDL::Graphics::Gnuplot][PDL::Graphics::Gnuplot]], [[https://metacpan.org/pod/Graphics::GnuplotIF][Graphics::GnuplotIF]], and probably others.
 
@@ -13,6 +17,14 @@ To use this in a perl program:
   my $colors = palette("BlackBody");
   send_to_gnuplot_process("set palette $colors");
   #+END_SRC
+
+A specific example for [[https://metacpan.org/pod/PDL::Graphics::Gnuplot][PDL::Graphics::Gnuplot]]:
+  #+BEGIN_SRC perl
+  use Graphics::Gnuplot::Palette;
+  my $w = PDL::Graphics::Gnuplot -> new();
+  $w->image({palette=>palette("Kindlmann")}, $image_pdl);
+  #+END_SRC
+
 
 The ~palette~ method is exported by default and takes as its argument
 one of the perl module names listed in the tables below.  In the case
@@ -75,16 +87,15 @@ http://www.kennethmoreland.com/color-advice
 | ExtendedKindlmann  | Like above but adds more hues by doing a more than 360 degree loop around the hues                                            |
 
 
-
 ** CET Perceptually Uniform Colour Maps
 
 This set of color maps is designed to have uniform perceptual contrast
 over their whole range.  See http://peterkovesi.com/projects/colourmaps/
 
-All palettes in this group are the work of Peter Kovesi The University
-of Western Australia.  They are used under the terms of the [[http://creativecommons.org/licenses/by/4.0/][Creative
-Commons BY License]].  For more information, see the website or Kovesi's
-paper [[http://arxiv.org/pdf/1509.03700.pdf][Good Colour Maps: How to Design Them]], (arXiv:1509.03700
+All palettes in this group are the work of Peter Kovesi of The
+University of Western Australia.  They are used under the terms of the
+[[http://creativecommons.org/licenses/by/4.0/][Creative Commons BY License]].  For more information, see the website or
+Kovesi's paper [[http://arxiv.org/pdf/1509.03700.pdf][Good Colour Maps: How to Design Them]], (arXiv:1509.03700
 [cs.GR] 2015)
 
 The palettes in this group were generated from [[http://peterkovesi.com/projects/colourmaps/CETperceptual_ParaView.xml][this XML file]] using a
@@ -102,12 +113,12 @@ purpose, so I adopted a file name shortening scheme as follows:
 | RB     | rainbow     | nominally follow some representation of the color spectrum                            |
 
 And here are is the connection between perl module names and original
-color map names.
+color map names.  The astute will note that a couple of the originals
+are lost due to the file name shortening scheme.
 
 | perl module     | original name                     |
 |-----------------+-----------------------------------|
 | L_grey          | linear_grey_0-100_c0              |
-| L_grey          | linear_grey_10-95_c0              |
 | L_kryw          | linear_kryw_5-100_c67             |
 | L_kry           | linear_kry_5-98_c75               |
 | L_green         | linear_green_5-95_c69             |
@@ -125,11 +136,11 @@ color map names.
 | D_gwr           | diverging_gwr_55-95_c38           |
 | D_bkr           | diverging_bkr_55-10_c35           |
 | D_bky           | diverging_bky_60-10_c30           |
-| D-L_bjy         | diverging-linear_bjy_30-90_c45    |
-| D-L_bjr         | diverging-linear_bjr_30-55_c53    |
+| D_L_bjy         | diverging-linear_bjy_30-90_c45    |
+| D_L_bjr         | diverging-linear_bjr_30-55_c53    |
 | D_bwr           | diverging_bwr_55-98_c37           |
 | D_cwm           | diverging_cwm_80-100_c22          |
-| D-RB_bgymr      | diverging-rainbow_bgymr_45-85_c67 |
+| D_RB_bgymr      | diverging-rainbow_bgymr_45-85_c67 |
 | RB_bgyrm        | rainbow_bgyrm_35-85_c71           |
 | RB_bgyr         | rainbow_bgyr_35-85_c73            |
 | C_mrybm         | cyclic_mrybm_35-75_c68            |
@@ -138,8 +149,8 @@ color map names.
 | C_grey          | cyclic_grey_15-85_c0              |
 | I_cgo           | isoluminant_cgo_70_c39            |
 | I_cm            | isoluminant_cm_70_c39             |
-| D-I_cjo         | diverging-isoluminant_cjo_70_c25  |
-| D-I_cjm         | diverging-isoluminant_cjm_75_c24  |
+| D_I_cjo         | diverging-isoluminant_cjo_70_c25  |
+| D_I_cjm         | diverging-isoluminant_cjm_75_c24  |
 
 The original file names are explained in an image 
 from [[http://peterkovesi.com/projects/colourmaps/][Kovesi's web site]].  The following text is copied from 
@@ -148,7 +159,7 @@ there.  Examples are given for each color map at the web site.
 [[http://peterkovesi.com/projects/colourmaps/NamingConvention.png]]
 
 + A colour map may have more than one attribute. For example,
-  diverging-linear or cyclic-isoluminant.
+  diverging-isoluminant (D_I).
 
 + Lightness values can range from 0 to 100. For linear colour maps the
   two lightness values indicate the first and last lightness values in
@@ -158,7 +169,8 @@ there.  Examples are given for each color map at the web site.
   the two values indicate the minimum and maximum lightness
   values. Isoluminant colour maps have only one lightness value.
 
-+ The string of characters indicating the nominal hue sequence uses the following code
++ The string of characters indicating the nominal hue sequence uses
+  the following code
 
     | r - red    | g - green   | b - blue   |
     | c - cyan   | m - magenta | y - yellow |

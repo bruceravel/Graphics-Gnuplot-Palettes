@@ -1,8 +1,20 @@
 #!/usr/bin/perl
 
+## download the float color tables from http://www.kennethmoreland.com/color-advice/
+## I used the 32 tables but this script will work with any of them:
+
+## wget http://www.kennethmoreland.com/color-advice/bent-cool-warm/bent-cool-warm-table-float-0032.csv
+## wget http://www.kennethmoreland.com/color-advice/black-body/black-body-table-float-0032.csv
+## wget http://www.kennethmoreland.com/color-advice/extended-black-body/extended-black-body-table-float-0032.csv
+## wget http://www.kennethmoreland.com/color-advice/extended-kindlmann/extended-kindlmann-table-float-0032.csv
+## wget http://www.kennethmoreland.com/color-advice/kindlmann/kindlmann-table-float-0032.csv
+## wget http://www.kennethmoreland.com/color-advice/smooth-cool-warm/bent-cool-warm-table-float-0032.csv
+
+
 use strict;
 use warnings;
 
+use List::Util qw(min);
 use Text::Template;
 
 my $tmpl = Text::Template->new(TYPE=>'FILE', SOURCE=>'module.tmpl')
@@ -33,7 +45,7 @@ foreach my $f (@list) {
   my $palette = "defined (\\\n";
   foreach my $l (<$fh>) {
     next if ($l =~ m{\Ascalar});
-    $palette .= sprintf("  %8.6f  %8.6f  %8.6f  %8.6f,\\\n", split(/,/, $l));
+    $palette .= sprintf("  %8.6f  %8.6f  %8.6f  %8.6f,\\\n", map {min($_, 1)} split(/,/, $l)); # smooth-cool-warm has a value >1 -- yikes!
   };
   chop $palette;
   chop $palette;
