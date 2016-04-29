@@ -23,7 +23,7 @@ introspection functions work.  Proper testing that all the palettes
 are defined correctly requires human interaction to see that each
 palette in the collection works.  This is done by visual comparison
 with the default palette.  To run the tests interactively do, for
-instance ~perl -Iblib test.t~ in the main directory.
+instance, ~perl -Iblib/lib test.t~ in the main directory.
 
 ** Overview
 
@@ -64,7 +64,7 @@ and palette names:
   #+BEGIN_SRC perl
   my @groups = palette_groups();
   my @all_names = palette_names();
-  my CET_names = palette_names("CET");
+  my @CET_names = palette_names("CET");
   #+END_SRC
 
 
