@@ -17,9 +17,13 @@ This installs like any perl package:
   sudo make install
   #+END_EXAMPLE
 
-Note: ~make test~ not working at this time, although running ~perl
--I../blib/lib test.t~ in the ~t~ directory will run the test suite
-correctly.
+The ~make test~ test step is fairly trivial.  When run in that way,
+the test only checks to see that the module loads and that the
+introspection functions work.  Proper testing that all the palettes
+are defined correctly requires human interaction to see that each
+palette in the collection works.  This is done by visual comparison
+with the default palette.  To run the tests interactively do, for
+instance ~perl -Iblib test.t~ in the main directory.
 
 ** Overview
 
@@ -38,7 +42,6 @@ A specific example for [[https://metacpan.org/pod/PDL::Graphics::Gnuplot][PDL::G
   $w->image({palette=>palette("Kindlmann")}, $image_pdl);
   #+END_SRC
 
-
 The ~palette~ method is exported by default and takes as its argument
 one of the perl module names listed in the tables below.  In the case
 of a name collision, you can specify the palette group also, like so:
@@ -52,7 +55,17 @@ among that palette group.  In the one-argument form, the first one
 found by that name is returned.
 
 If the requested palette name cannot be found, the function returns
-the string defining Gnuplot's traditional pm3d palette.
+the string defining Gnuplot's traditional pm3d palette.  In that way,
+/something/ sensible will always be plotted.
+
+There are also introspection functions which return lists of groups
+and palette names:
+
+  #+BEGIN_SRC perl
+  my @groups = palette_groups();
+  my @all_names = palette_names();
+  my CET_names = palette_names("CET");
+  #+END_SRC
 
 
 ** Palette groups
@@ -207,3 +220,10 @@ the string defining Gnuplot's traditional pm3d palette.
    data that is cyclic over 360 or 180 degrees a cyclic shift of 25%
    may be applied.
 
+*** Others
+
++ [[http://colorbrewer2.org/][Color Brewer]] and [[https://github.com/aschn/gnuplot-colorbrewer][Color brewer for Gnuplot]]
+
++ [[https://datascience.lanl.gov/colormaps.html][LANL Data Science]]
+
++ [[http://scipy-cookbook.readthedocs.org/items/Matplotlib_Show_colormaps.html][Matplotlib's color map library]]

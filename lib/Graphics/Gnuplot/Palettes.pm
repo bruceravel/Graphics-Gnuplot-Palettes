@@ -25,7 +25,7 @@ foreach my $g (@groups) {
   closedir $H;
   $palettes{$g} = [];
   foreach my $k (@keys) {
-    #eval "use Graphics::Gnuplot::Palettes::$g::$k (qw/\$$k/);";
+    eval "use Graphics::Gnuplot::Palettes::$g::$k (qw/\$$k/);";
     push @{$palettes{$g}}, $k;
   };
 };
