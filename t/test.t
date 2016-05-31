@@ -36,13 +36,13 @@ is($#names, 5, "correct number of Moreland names");
 
 my $w   = PDL::Graphics::Gnuplot -> new();
 my $term = q{};
-if (PDL::Graphics::Gnuplot::terminfo =~ m{The default P::G::G window is currently using the '(\w+)' terminal}) {
-  $term = $1;
-  $w->output("$term 1");
-};
+my @topts = split(" ", $w->{options}->{terminal});
+$term = $topts[0];
+$w->output("$term 1") if $term;
 ok($term, "Recognized terminal");
 
-my @properties = (xlabel=>'pixels (width)', ylabel=>'pixels (height)', cblabel=>'counts', ymin=>194, ymax=>0, size=>'ratio 0.4');
+my @properties = (xlabel=>'pixels (width)', ylabel=>'pixels (height)', cblabel=>'counts',
+		  ymin=>194, ymax=>0, size=>'ratio 0.4');
 
 
 SKIP: {
