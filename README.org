@@ -227,3 +227,5 @@ and palette names:
 + [[https://datascience.lanl.gov/colormaps.html][LANL Data Science]]
 
 + [[http://scipy-cookbook.readthedocs.org/items/Matplotlib_Show_colormaps.html][Matplotlib's color map library]]
+
++ [[https://github.com/bids/colormap][A set of new matplotlib color maps]]
