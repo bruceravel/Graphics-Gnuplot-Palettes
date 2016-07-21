@@ -25,7 +25,8 @@ foreach my $g (@groups) {
   closedir $H;
   $palettes{$g} = [];
   foreach my $k (@keys) {
-    eval "use Graphics::Gnuplot::Palettes::$g::$k (qw/\$$k/);";
+    eval "use Graphics::Gnuplot::Palettes::".$g."::".$k." (qw/\$$k/);"; # works on perl 5.14
+    #eval "use Graphics::Gnuplot::Palettes::$g::$k (qw/\$$k/);";
     push @{$palettes{$g}}, $k;
   };
 };
@@ -41,11 +42,15 @@ sub palette {
     return "rgbformulae 7,5,15";
   };
   if ($group and exists($palettes{$group}->{$name})) {
-    return eval "\$Graphics::Gnuplot::Palettes::$group::$name::$name";
+    my $retval = join("::", "\$Graphics::Gnuplot::Palettes", $group, $name, $name);
+    return eval "$retval";
+    #return eval "\$Graphics::Gnuplot::Palettes::$group::$name::$name";
   } else{
     foreach my $g (@groups) {
       if (any {$_ eq $name} @{$palettes{$g}}) {
-	return eval "\$Graphics::Gnuplot::Palettes::$g::$name::$name";
+	my $retval = join("::", "\$Graphics::Gnuplot::Palettes", $g, $name, $name);
+	return eval "$retval";
+	#return eval "\$Graphics::Gnuplot::Palettes::$g::$name::$name";
       };
     };
   };
