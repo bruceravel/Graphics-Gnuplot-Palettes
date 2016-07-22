@@ -118,7 +118,7 @@ where C<$group> is one of the names returned by C<palette_groups> and
 C<$name> is one of the names returned by C<palette_names>.
 
 If the group or name cannot be resolved, this function returns the
-"Gnuplot-->Pm3d" palette, which is C<rgbformulae 7,5,15>.
+"Gnuplot, Pm3d" palette, which is C<rgbformulae 7,5,15>.
 
 Note that this is the palette definition.  The string "set palette" is
 not returned by the C<palette> function.  So, to make a suitable
@@ -126,10 +126,17 @@ command for Gnuplot, you would have to do something like:
 
   printf "set palette %s\n", palette($name);
 
+An example of using Graphics::Gnuplot::Palettes with
+PDL::Graphics::Gnuplot:
+
+  use Graphics::Gnuplot::Palette;
+  my $w = PDL::Graphics::Gnuplot -> new();
+  $w->image({palette=>palette("Kindlmann")}, $image_pdl);
+
 =item C<palette_groups> (can be exported)
 
 Return a list of all palette groups, currently : Gnuplot, CET,
-Moreland, and Matlab>
+Moreland, and Matlab.
 
 =item C<palette_names> (can be exported)
 
