@@ -40,13 +40,14 @@ foreach my $subdir (qw(diverging qualitative sequential)) {
     $palette =~ s{,\\\s+}{, }g;
     $palette =~ s{\n\z}{};
     $palette =~ s{\'}{"}g;
+    $palette =~ s{set palette }{};
     close $fh;
 
     mkdir '../lib/Graphics/Gnuplot/Palettes/Brewer/' if not -d '../lib/Graphics/Gnuplot/Palettes/Brewer/';
     (my $ff = $f) =~ s{\.plt\z}{};
     #print '../lib/Graphics/Gnuplot/Palettes/Brewer/'.$ff.'.pm', $/;
-    open(my $PM, '>', '../lib/Graphics/Gnuplot/Palettes/Brewer/'.$ff.'.pm');
-    print $PM $tmpl->fill_in(HASH => {group=>'Brewer', name=>$ff, palette=>$palette, copyright=>$copyright});
+    open(my $PM, '>', '../lib/Graphics/Gnuplot/Palettes/Brewer/'.ucfirst($subdir).'_'.$ff.'.pm');
+    print $PM $tmpl->fill_in(HASH => {group=>'Brewer', name=>ucfirst($subdir).'_'.$ff, palette=>$palette, copyright=>$copyright});
     close $PM;
 
   };

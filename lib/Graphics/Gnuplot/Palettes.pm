@@ -135,7 +135,7 @@ PDL::Graphics::Gnuplot:
 
 =item C<palette_groups> (can be exported)
 
-Return a list of all palette groups, currently : Gnuplot, CET,
+Return a list of all palette groups, currently : Gnuplot, Brewer, CET,
 Moreland, and Matlab.
 
 =item C<palette_names> (can be exported)

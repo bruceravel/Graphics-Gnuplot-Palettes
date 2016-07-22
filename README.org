@@ -35,11 +35,23 @@ To use this in a perl program:
   send_to_gnuplot_process("set palette $colors");
   #+END_SRC
 
+To invert the color palette, do 
+
+  #+BEGIN_SRC perl
+  send_to_gnuplot_process("set palette negative $colors");
+  #+END_SRC
+
 A specific example for [[https://metacpan.org/pod/PDL::Graphics::Gnuplot][PDL::Graphics::Gnuplot]]:
   #+BEGIN_SRC perl
   use Graphics::Gnuplot::Palette;
   my $w = PDL::Graphics::Gnuplot -> new();
   $w->image({palette=>palette("Kindlmann")}, $image_pdl);
+  #+END_SRC
+
+To invert the color palette, do 
+
+  #+BEGIN_SRC perl
+  $w->image({palette=>"negative ".palette("Kindlmann")}, $image_pdl);
   #+END_SRC
 
 The ~palette~ method is exported by default and takes as its argument
@@ -88,6 +100,54 @@ and palette names:
  | Grey        | 30,31,32   | color printable on gray (black-blue-violet-yellow-white)  |
  | Rainbow     | 33,13,10   | rainbow (blue-green-yellow-red)                           |
  | AFMHot      | 34,35,36   | AFM hot (black-red-yellow-white)                          |
+
+*** Color Brewer
+
+This set implements the [[https://github.com/aschn/gnuplot-colorbrewer][Gnuplot translations]] of [[http://colorbrewer2.org/][Color Brewer 2.0]].
+
+Diverging color schemes are good for emphasizing both extremes of
+ordered data.  Sequential color schemes are good for emphasizing one
+extreme of ordered data.  Qualitative color schemes are good for
+comparing data sets without emphasizing any inherent ordering.
+
+
+ | perl module            | explanation                            |
+ |------------------------+----------------------------------------|
+ | Diverging_BrBG.pm      | Brown to green, centered about white   |
+ | Diverging_PRGn.pm      | Purple to green, centered about white  |
+ | Diverging_PiYG.pm      | Pink to green, centered about yellow   |
+ | Diverging_PuOr.pm      | Purple to orange, centered about white |
+ | Diverging_RdBu.pm      | Red to blue, centered about white      |
+ | Diverging_RdGy.pm      | Red to gray, centered about white      |
+ | Diverging_RdYlBu.pm    | Red to blue, centered about yellow     |
+ | Diverging_RdYlGn.pm    | Red to green, centered about yellow    |
+ | Diverging_Spectral.pm  | Rainbow, centered about yellow         |
+ | Qualitative_Accent.pm  | Pastels and saturated colors           |
+ | Qualitative_Dark2.pm   | Saturated colors                       |
+ | Qualitative_Paired.pm  | Paired pastel and saturated            |
+ | Qualitative_Pastel1.pm | All pastels                            |
+ | Qualitative_Pastel2.pm | All pastels                            |
+ | Qualitative_Set1.pm    | Saturated colors                       |
+ | Qualitative_Set2.pm    | Desaturated but not pastel             |
+ | Qualitative_Set3.pm    | Less saturated, still not pastel       |
+ | Sequential_Blues.pm    | White to blue                          |
+ | Sequential_BuGn.pm     | White to blue to green                 |
+ | Sequential_BuPu.pm     | White to blue to purple                |
+ | Sequential_GnBu.pm     | White to green to blue                 |
+ | Sequential_Greens.pm   | White to green                         |
+ | Sequential_Greys.pm    | White to gray                          |
+ | Sequential_OrRd.pm     | White to orange to red                 |
+ | Sequential_Oranges.pm  | White to orange                        |
+ | Sequential_PuBu.pm     | White to purple to blue                |
+ | Sequential_PuBuGn.pm   | White to purple to blue to green       |
+ | Sequential_PuRd.pm     | White to purple to red                 |
+ | Sequential_Purples.pm  | White to purple                        |
+ | Sequential_RdPu.pm     | White to red to purple                 |
+ | Sequential_Reds.pm     | White to red                           |
+ | Sequential_YlGn.pm     | White to yellow to green               |
+ | Sequential_YlGnBu.pm   | White to yellow to green to blue       |
+ | Sequential_YlOrBr.pm   | White to yellow to orange to brown     |
+ | Sequential_YlOrRd.pm   | White to yellow to orange to red       |
 
 *** Matlab-like palettes
 
@@ -221,8 +281,6 @@ and palette names:
    may be applied.
 
 *** Others
-
-+ [[http://colorbrewer2.org/][Color Brewer]] and [[https://github.com/aschn/gnuplot-colorbrewer][Color brewer for Gnuplot]]
 
 + [[https://datascience.lanl.gov/colormaps.html][LANL Data Science]]
 

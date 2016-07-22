@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 51;
+use Test::More tests => 86;
 
 use File::Basename;
 use File::Spec;
@@ -27,9 +27,9 @@ BEGIN {
 
 ## introspection tests
 my @groups = palette_groups;
-is($#groups, 3, "correct number of groups");
+is($#groups, 4, "correct number of groups");
 my @names = palette_names;
-is($#names, 45, "correct number of names");
+is($#names, 80, "correct number of names");
 @names = palette_names("Moreland");
 is($#names, 5, "correct number of Moreland names");
 
@@ -46,7 +46,7 @@ my @properties = (xlabel=>'pixels (width)', ylabel=>'pixels (height)', cblabel=>
 
 
 SKIP: {
-  skip "Not running interactive tests", 46 unless ( _is_interactive() and
+  skip "Not running interactive tests", 81 unless ( _is_interactive() and
 						    get_ans("Do you want to run the (brief but interactive) tests?", 'y') );
 
   my $pdl = Read(File::Spec->catfile(dirname($0),'image.tif'));
